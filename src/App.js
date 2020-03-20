@@ -1,28 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Appear,
-  Box,
-  CodePane,
-  CodeSpan,
   Deck,
-  FlexBox,
-  FullScreen,
-  Grid,
-  Heading,
-  Image,
-  ListItem,
-  Markdown,
-  Notes,
-  OrderedList,
-  Progress,
   Slide,
-  SpectacleLogo,
-  Stepper,
-  Text,
-  UnorderedList,
-  indentNormalizer
 } from 'spectacle';
-import reader from 'txt-reader';
 
 const theme = {
   fonts: {
@@ -31,66 +11,37 @@ const theme = {
   }
 };
 
-const template = () => (
-  <FlexBox
-    justifyContent="space-between"
-    position="absolute"
-    bottom={0}
-    width={1}
-  >
-    <Box padding="0 1em">
-      <FullScreen />
-    </Box>
-    <Box padding="1em">
-      <Progress />
-    </Box>
-  </FlexBox>
-);
+const slideImports = [
+  import('slides/Opener'),
+  import('slides/HowItLooks'),
+  import('slides/HowItWorks'),
+  import('slides/WhatThePros'),
+  import('slides/Why'),
+  import('slides/WhyList'),
+  import('slides/WhatTheCons'),
+  import('slides/WhyNoList'),
+  import('slides/End')
+]
 
 function App() {
-  // const [ready, setReady] = useState(false);
-  // const [codechunks, setCodechunks] = useState([]);
-  // const loadChunks = async () => {
-  //   const chunks = await Promise.all([
-  //     reader.loadFile('./codechunks/flatten')
-  //   ]);
-  //   setCodechunks(chunks.map(text => indentNormalizer(text)));
-  //   setReady(true);
-  // }
-  // useEffect(() => {
-  //   loadChunks();
-  // }, []);
+  const [slides, setSlides] = useState(Array(slideImports.length).fill(<Slide key="loading" />));
 
-  // if (!ready) return null;
+  const loadSlides = async () => {
+    const loaded = await Promise.all(slideImports);
+    setSlides(loaded.map(slide => slide.default));
+  }
 
-  // const [flatten] = codechunks;
-
-  // console.log(flatten);
+  useEffect(() => {
+    loadSlides();
+  }, []);
 
   return (
-    <Deck theme={theme} template={template} transitionEffect="fade">
-      <Slide>
-        <FlexBox height="100%" flexDirection="column">
-          <Heading margin="0px" fontSize="120px">
-            styled-components
-          </Heading>
-          <Heading margin="0px" fontSize="h2">
-            CSS-IN-JS WTF
-          </Heading>
-        </FlexBox>
-        <Notes>
-          <p>
-            Notes are shown in presenter mode. Open up
-            localhost:3000/?presenterMode=true to see them.
-          </p>
-        </Notes>
-      </Slide>
-      <Slide>
-        <Heading>How does it look?</Heading>
-        {/* <Stepper>
-
-        </Stepper> */}
-      </Slide>
+    <Deck theme={theme} transition="fade">
+      {
+        slides.map((slide, index) => {
+          return React.cloneElement(slide, { key: index });
+        })
+      }
     </Deck>
   );
 }

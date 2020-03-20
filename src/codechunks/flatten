@@ -1,3 +1,22 @@
+function styled(strings, ...values) {
+  return { strings, ...values }; 
+}
+
+const eyes = styled`
+  width: 420vh;
+  color: red;
+  ${(props) => move(props)}
+`;
+
+console.log(eyes);
+[
+  [
+    "\n  width: 420vh;\n  color: red;\n  ",
+    "\n"
+  ],
+  (props) => move(props)
+]
+
 // @flow
 import { isElement } from 'react-is';
 import getComponentName from './getComponentName';
@@ -36,9 +55,9 @@ export const objToCssArray = (obj: Object, prevKey?: string): Array<string | Fun
       return rules;
     })
 
-    return prevKey
-      ? [`${prevKey} {`, ...rules, '}']
-      : rules;
+  return prevKey
+    ? [`${prevKey} {`, ...rules, '}']
+    : rules;
 };
 
 export default function flatten(chunk: any, executionContext: ?Object, styleSheet: ?Object): any {
