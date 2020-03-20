@@ -2,8 +2,8 @@
 
 ## How to use
 
-`yarn start` - runs the presentation on `:3000`
-`:3000/?presenerMode=true` - gives presenter notes view
+* `yarn start` - runs the presentation on `:3000`
+* `:3000/?presenerMode=true` - gives presenter notes view
 
 ## Links
 
