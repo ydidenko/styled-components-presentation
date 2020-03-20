@@ -35,7 +35,7 @@ const Why = (
           Automatic vendor prefixing
         </ListItem>
       </Appear>
-      <Appear elementNum={4}>
+      <Appear elementNum={5}>
         <ListItem>
           It is growing
         </ListItem>

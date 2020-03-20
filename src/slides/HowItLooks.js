@@ -41,10 +41,9 @@ const HowItLooks = (
 
           <Box
             position="absolute"
-            bottom="0rem"
             left="0rem"
             right="0rem"
-            bg="black"
+            bg="rgba(0, 0, 0, .5)"
           >
             {step === -1 && (
               <Text fontSize="1.5rem" margin="0rem">

@@ -14,5 +14,11 @@ code {
 
 
 pre {
-  max-height: 350px !important;
+  max-height: 450px !important;
+  z-index: 0;
+}
+
+.duigni {
+  z-index: 100;
+  bottom: auto !important;
 }
